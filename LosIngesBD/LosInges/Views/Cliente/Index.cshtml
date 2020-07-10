@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header card-header-info card-header-text">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <h4 class="card-title">Clientes</h4>
+            </div>
+            <div class="card-body ">
+                <div class="row col-md-12">
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @Html.EJS().Grid("GridCliente").DataSource((IEnumerable<object>)ViewBag.ListaCliente).RowSelected("ClienteSe").AllowFiltering().AllowTextWrap().EnableAutoFill().AllowResizing(true).Columns(col =>
+                   {
+                                  col.Field("IdCliente").Visible(false).Add();
+                                  col.Field("Nombre").HeaderText("Nombre").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                  col.Field("appat").HeaderText("Apellido Paterno").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                  col.Field("apmat").HeaderText("Apellido Materno").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                  col.Field("tel").HeaderText("Telefono").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                  col.Field("correo").HeaderText("Correo").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+
+                        }).AllowPaging().PageSettings(page => { page.PageSize(5); }).Render()
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <input type="button" value="Agregar" id="btnagregar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalClienteUpdate" tabindex="-1" role="dialog" aria-labelledby="ModalClienteUpdate" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="frmClienteUp">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalClienteCreate" tabindex="-1" role="dialog" aria-labelledby="ModalClienteCreate" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="frmClienteadd">
+                @Html.Action("Create", "Cliente")
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#btnagregar").click(function () {
+        $("#ModalClienteCreate").modal("show");
+    });
+    function ClienteSe(args) {
+        var grid = document.getElementById("GridCliente").ej2_instances[0];
+        var IdC = grid.getSelectedRecords()[0].IdCliente;  // get the selected records.
+        var url = '@Url.Action("Update", "Cliente", new { IdCliente = "_id_" })'.replace('_id_', IdC);
+        window.location=url;
+    }
+</script>

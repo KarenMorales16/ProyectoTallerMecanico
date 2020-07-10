@@ -1,0 +1,80 @@
+﻿@model LosInges.Models.Auto
+@{
+    Layout = null;
+}
+
+
+
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class=" card">
+        <div class="card-header card-header-icon" data-background-color="rose">
+            <div class="card-icon">
+                <i class="material-icons">directions_car</i>
+            </div>
+        </div>
+        <div class="card-header">
+            <h3 class="card-title"><small class="category">Alta Auto</small></h3>
+        </div>
+        @using (Html.BeginForm("Create", "Auto", new AjaxOptions { UpdateTargetId = "frmAutoadd" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label">Marca</label>
+                            <span class="material-input">
+                                @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @style = "border: none; background-color:white;" } })
+                                @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label">Modelo</label>
+                            <span class="material-input">
+                                @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", @style = "border: none; background-color:white;" } })
+                                @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-8">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label">Matricula</label>
+                            <span class="material-input">
+                                @Html.EditorFor(model => model.Placa, new { htmlAttributes = new { @class = "form-control", @style = "border: none; background-color:white;" } })
+                                @Html.ValidationMessageFor(model => model.Placa, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-8">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label">Año</label>
+                            <span class="material-input">
+                                @Html.EditorFor(model => model.Anio, new { htmlAttributes = new { @class = "form-control", @style = "border: none; background-color:white;" } })
+                                @Html.ValidationMessageFor(model => model.Anio, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="form-group" hidden>
+                    @Html.EditorFor(model => model.IdCliente)
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Agregar Auto" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

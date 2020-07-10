@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header card-header-info card-header-text">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <h4 class="card-title">Empleado</h4>
+            </div>
+            <div class="card-body ">
+                <div class="row col-md-12">
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @Html.EJS().Grid("GridEmpleado").DataSource((IEnumerable<object>)ViewBag.ListEmp).RowSelected("EmpleadoSe").AllowFiltering().AllowTextWrap().EnableAutoFill().AllowResizing(true).Columns(col =>
+                   {
+                       col.Field("IdEmp").Visible(false).Add();
+                       col.Field("NomEmp").HeaderText("Descripcion").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                       col.Field("ApPat").HeaderText("Apellido Paterno").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                       col.Field("ApMat").HeaderText("Apellido Materno").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                       col.Field("DepaEmp").HeaderText("Departamento").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Visible(false).Add();
+                       col.Field("PuestoEmp").HeaderText("Puesto").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Visible(false).Add();
+                       col.Field("DepaEmpNom").HeaderText("Puesto").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                       col.Field("PuestoEmpNom").HeaderText("Puesto").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+
+
+                  }).AllowPaging().PageSettings(page => { page.PageSize(5); }).Render()
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <input type="button" value="Agregar" id="btnagregar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalEmpleadoCreate" tabindex="-1" role="dialog" aria-labelledby="ModalEmpleadoCreate" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="frmClienteadd">
+                @Html.Action("Create", "Empleados")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalEmpleadoEdit" tabindex="-1" role="dialog" aria-labelledby="ModalEmpleadoEdit" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="frmEmpEdit">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function EmpleadoSe(args) {
+        var grid = document.getElementById("GridEmpleado").ej2_instances[0];
+    }
+        $("#btnagregar").click(function () {
+        $("#ModalEmpleadoCreate").modal("show");
+    });
+    function EmpleadoSe(args) {
+        var grid = document.getElementById("GridEmpleado").ej2_instances[0];
+        var IdC = grid.getSelectedRecords()[0].IdEmp;  // get the selected records.
+        var url = '@Url.Action("Update", "Empleados", new { IdEmpleado = "_id_" })'.replace('_id_', IdC);
+        $("#frmEmpEdit").load(url);
+        $("#ModalEmpleadoEdit").modal("show");
+    }
+
+
+</script>

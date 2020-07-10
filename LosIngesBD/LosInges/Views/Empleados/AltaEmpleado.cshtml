@@ -1,0 +1,85 @@
+﻿@model LosInges.Models.Empleado
+
+
+
+@{
+    Layout = null;
+}
+
+
+
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class=" card">
+        <div class="card-header card-header-icon" data-background-color="rose">
+            <div class="card-icon">
+                <i class="material-icons">people</i>
+            </div>
+            <h3 class="card-title"><small class="category">Alta Empleado</small></h3>
+        </div>
+        @using (Html.BeginForm("Create", "Empleados", new AjaxOptions { UpdateTargetId = "frmContadd" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label">Nombre Empleado</label>
+                            <span class="material-input">
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label">Apellido Paterno</label>
+                            <span class="material-input">
+                                @Html.EditorFor(model => model.ApPat, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ApPat, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label">Apellido Materno</label>
+                            <span class="material-input">
+                                @Html.EditorFor(model => model.ApMat, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ApMat, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group label-floating is-empty">
+                        <label class="control-label">Departamento</label>
+                        <span class="material-input">
+                            @Html.DropDownListFor(model => model.IdDepartamento, new SelectList(ViewBag.ListDepa, "IdDepa", "DesDepa"), htmlAttributes: new { @class = "custom-select custom-select-md " })
+                            @Html.ValidationMessageFor(model => model.IdDepartamento, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group label-floating is-empty">
+                        <label class="control-label">Puesto</label>
+                        <span class="material-input">
+                            @Html.DropDownListFor(model => model.IdPuesto, new SelectList(ViewBag.ListPues, "IdPues", "DesPues"), htmlAttributes: new { @class = "custom-select custom-select-md " })
+                            @Html.ValidationMessageFor(model => model.IdPuesto, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+

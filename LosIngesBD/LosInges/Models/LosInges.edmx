@@ -1,0 +1,1268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LosIngesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Auto">
+          <Key>
+            <PropertyRef Name="IdAuto" />
+          </Key>
+          <Property Name="IdAuto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Placa" Type="varchar" MaxLength="7" />
+          <Property Name="IdStatus_Auto" Type="int" />
+          <Property Name="Marca" Type="varchar" MaxLength="10" />
+          <Property Name="Modelo" Type="varchar" MaxLength="10" />
+          <Property Name="Anio" Type="int" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="Eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Auto_Reparacion">
+          <Key>
+            <PropertyRef Name="IdAuto" />
+            <PropertyRef Name="IdRestauracion" />
+          </Key>
+          <Property Name="IdAuto" Type="int" Nullable="false" />
+          <Property Name="IdRestauracion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" />
+          <Property Name="ApPat" Type="varchar" MaxLength="20" />
+          <Property Name="ApMat" Type="varchar" MaxLength="20" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" />
+          <Property Name="Correo" Type="varchar" MaxLength="40" />
+          <Property Name="IdTipoCliente" Type="int" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Diagnostico">
+          <Key>
+            <PropertyRef Name="IdDiagnostico" />
+          </Key>
+          <Property Name="IdDiagnostico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAuto" Type="int" />
+          <Property Name="IdEmpleado" Type="int" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" />
+          <Property Name="ApPat" Type="varchar" MaxLength="20" />
+          <Property Name="ApMat" Type="varchar" MaxLength="20" />
+          <Property Name="IdDepartamento" Type="int" />
+          <Property Name="IdPuesto" Type="int" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+          </Key>
+          <Property Name="IdFactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAuto" Type="int" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="IdRestauracion" Type="int" />
+          <Property Name="IdProducto" Type="int" />
+          <Property Name="IdPromocion" Type="int" />
+          <Property Name="IdEmpleado" Type="int" />
+          <Property Name="SubTotal" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="FechaExpedicion" Type="date" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="40" />
+          <Property Name="NoParte" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Producto_Reparacion">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+            <PropertyRef Name="IdRestauracion" />
+          </Key>
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+          <Property Name="IdRestauracion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Promocion">
+          <Key>
+            <PropertyRef Name="IdPromocion" />
+          </Key>
+          <Property Name="IdPromocion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Promocion" Type="int" />
+          <Property Name="FechaInicio" Type="date" />
+          <Property Name="Fechavenchimiento" Type="date" />
+        </EntityType>
+        <EntityType Name="Puesto">
+          <Key>
+            <PropertyRef Name="IdPuesto" />
+          </Key>
+          <Property Name="IdPuesto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Restauracion">
+          <Key>
+            <PropertyRef Name="IdRestauracion" />
+          </Key>
+          <Property Name="IdRestauracion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAuto" Type="int" />
+          <Property Name="IdEmpleado" Type="int" />
+          <Property Name="IdDepartamento" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="PrecioRestauracion" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="IdProducto" Type="int" />
+          <Property Name="FechaReatauracion" Type="date" />
+        </EntityType>
+        <EntityType Name="Status_Auto">
+          <Key>
+            <PropertyRef Name="IdStatus_Auto" />
+          </Key>
+          <Property Name="IdStatus_Auto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="TipoCliente">
+          <Key>
+            <PropertyRef Name="IdTipoCliente" />
+          </Key>
+          <Property Name="IdTipoCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK__Auto__IdCliente__52593CB8">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Auto__IdStatus_A__5165187F">
+          <End Role="Status_Auto" Type="Self.Status_Auto" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status_Auto">
+              <PropertyRef Name="IdStatus_Auto" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="IdStatus_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Auto_Repa__IdAut__71D1E811">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="Auto_Reparacion" Type="Self.Auto_Reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="Auto_Reparacion">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Auto_Repa__IdRes__72C60C4A">
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="1" />
+          <End Role="Auto_Reparacion" Type="Self.Auto_Reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauracion">
+              <PropertyRef Name="IdRestauracion" />
+            </Principal>
+            <Dependent Role="Auto_Reparacion">
+              <PropertyRef Name="IdRestauracion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__IdTipoC__4BAC3F29">
+          <End Role="TipoCliente" Type="Self.TipoCliente" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCliente">
+              <PropertyRef Name="IdTipoCliente" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IdTipoCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Diagnosti__IdAut__5CD6CB2B">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="0..1" />
+          <End Role="Diagnostico" Type="Self.Diagnostico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="Diagnostico">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Diagnosti__IdEmp__5DCAEF64">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Diagnostico" Type="Self.Diagnostico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Diagnostico">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empleado__IdDepa__59063A47">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empleado__IdPues__59FA5E80">
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Puesto">
+              <PropertyRef Name="IdPuesto" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdPuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdAuto__6A30C649">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdClien__6B24EA82">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdEmple__6EF57B66">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdProdu__6D0D32F4">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdPromo__6E01572D">
+          <End Role="Promocion" Type="Self.Promocion" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocion">
+              <PropertyRef Name="IdPromocion" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdPromocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdResta__6C190EBB">
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauracion">
+              <PropertyRef Name="IdRestauracion" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdRestauracion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto___IdPro__75A278F5">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Producto_Reparacion" Type="Self.Producto_Reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="Producto_Reparacion">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto___IdRes__76969D2E">
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="1" />
+          <End Role="Producto_Reparacion" Type="Self.Producto_Reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauracion">
+              <PropertyRef Name="IdRestauracion" />
+            </Principal>
+            <Dependent Role="Producto_Reparacion">
+              <PropertyRef Name="IdRestauracion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdAut__6477ECF3">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdDep__66603565">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdEmp__656C112C">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdPro__6754599E">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Alta_Empleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApPat" Type="varchar" Mode="In" />
+          <Parameter Name="ApMat" Type="varchar" Mode="In" />
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+          <Parameter Name="IdPuesto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Alta_Prod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApPat" Type="varchar" Mode="In" />
+          <Parameter Name="ApMat" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Alta_Producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="NoParte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Auto_Alta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Placa" Type="varchar" Mode="In" />
+          <Parameter Name="Marca" Type="varchar" Mode="In" />
+          <Parameter Name="Modelo" Type="varchar" Mode="In" />
+          <Parameter Name="Anio" Type="int" Mode="In" />
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Auto_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAuto" Type="int" Mode="In" />
+          <Parameter Name="Salida" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_Auto_EstadoTerminado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAuto" Type="int" Mode="In" />
+          <Parameter Name="Salida" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_AutoRestauracion_Alta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAuto" Type="int" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="int" Mode="In" />
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="PrecioRestauracion" Type="decimal" Mode="In" />
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Cliente_Alta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApPat" Type="varchar" Mode="In" />
+          <Parameter Name="ApMat" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Cliente_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApPat" Type="varchar" Mode="In" />
+          <Parameter Name="ApMat" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Empleado_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEmpleado" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApPat" Type="varchar" Mode="In" />
+          <Parameter Name="ApMat" Type="varchar" Mode="In" />
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+          <Parameter Name="IdPuesto" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="LosIngesModelStoreContainer">
+          <EntitySet Name="Auto" EntityType="Self.Auto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auto_Reparacion" EntityType="Self.Auto_Reparacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diagnostico" EntityType="Self.Diagnostico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto_Reparacion" EntityType="Self.Producto_Reparacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promocion" EntityType="Self.Promocion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Puesto" EntityType="Self.Puesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restauracion" EntityType="Self.Restauracion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status_Auto" EntityType="Self.Status_Auto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoCliente" EntityType="Self.TipoCliente" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Auto__IdCliente__52593CB8" Association="Self.FK__Auto__IdCliente__52593CB8">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Auto__IdStatus_A__5165187F" Association="Self.FK__Auto__IdStatus_A__5165187F">
+            <End Role="Status_Auto" EntitySet="Status_Auto" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Auto_Repa__IdAut__71D1E811" Association="Self.FK__Auto_Repa__IdAut__71D1E811">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Auto_Reparacion" EntitySet="Auto_Reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Auto_Repa__IdRes__72C60C4A" Association="Self.FK__Auto_Repa__IdRes__72C60C4A">
+            <End Role="Restauracion" EntitySet="Restauracion" />
+            <End Role="Auto_Reparacion" EntitySet="Auto_Reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__IdTipoC__4BAC3F29" Association="Self.FK__Cliente__IdTipoC__4BAC3F29">
+            <End Role="TipoCliente" EntitySet="TipoCliente" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Diagnosti__IdAut__5CD6CB2B" Association="Self.FK__Diagnosti__IdAut__5CD6CB2B">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Diagnostico" EntitySet="Diagnostico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Diagnosti__IdEmp__5DCAEF64" Association="Self.FK__Diagnosti__IdEmp__5DCAEF64">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Diagnostico" EntitySet="Diagnostico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleado__IdDepa__59063A47" Association="Self.FK__Empleado__IdDepa__59063A47">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleado__IdPues__59FA5E80" Association="Self.FK__Empleado__IdPues__59FA5E80">
+            <End Role="Puesto" EntitySet="Puesto" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdAuto__6A30C649" Association="Self.FK__Factura__IdAuto__6A30C649">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdClien__6B24EA82" Association="Self.FK__Factura__IdClien__6B24EA82">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdEmple__6EF57B66" Association="Self.FK__Factura__IdEmple__6EF57B66">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdProdu__6D0D32F4" Association="Self.FK__Factura__IdProdu__6D0D32F4">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdPromo__6E01572D" Association="Self.FK__Factura__IdPromo__6E01572D">
+            <End Role="Promocion" EntitySet="Promocion" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdResta__6C190EBB" Association="Self.FK__Factura__IdResta__6C190EBB">
+            <End Role="Restauracion" EntitySet="Restauracion" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto___IdPro__75A278F5" Association="Self.FK__Producto___IdPro__75A278F5">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Producto_Reparacion" EntitySet="Producto_Reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto___IdRes__76969D2E" Association="Self.FK__Producto___IdRes__76969D2E">
+            <End Role="Restauracion" EntitySet="Restauracion" />
+            <End Role="Producto_Reparacion" EntitySet="Producto_Reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdAut__6477ECF3" Association="Self.FK__Restaurac__IdAut__6477ECF3">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdDep__66603565" Association="Self.FK__Restaurac__IdDep__66603565">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdEmp__656C112C" Association="Self.FK__Restaurac__IdEmp__656C112C">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdPro__6754599E" Association="Self.FK__Restaurac__IdPro__6754599E">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LosIngesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Auto">
+          <Key>
+            <PropertyRef Name="IdAuto" />
+          </Key>
+          <Property Name="IdAuto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Placa" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="IdStatus_Auto" Type="Int32" />
+          <Property Name="Marca" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Modelo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Anio" Type="Int32" />
+          <Property Name="IdCliente" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Auto__IdCliente__52593CB8" FromRole="Auto" ToRole="Cliente" />
+          <NavigationProperty Name="Status_Auto" Relationship="Self.FK__Auto__IdStatus_A__5165187F" FromRole="Auto" ToRole="Status_Auto" />
+          <NavigationProperty Name="Diagnostico" Relationship="Self.FK__Diagnosti__IdAut__5CD6CB2B" FromRole="Auto" ToRole="Diagnostico" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdAuto__6A30C649" FromRole="Auto" ToRole="Factura" />
+          <NavigationProperty Name="Restauracion" Relationship="Self.FK__Restaurac__IdAut__6477ECF3" FromRole="Auto" ToRole="Restauracion" />
+          <NavigationProperty Name="Restauracion1" Relationship="Self.Auto_Reparacion" FromRole="Auto" ToRole="Restauracion" />
+          <Property Name="Eliminado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ApPat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ApMat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoCliente" Type="Int32" />
+          <NavigationProperty Name="Auto" Relationship="Self.FK__Auto__IdCliente__52593CB8" FromRole="Cliente" ToRole="Auto" />
+          <NavigationProperty Name="TipoCliente" Relationship="Self.FK__Cliente__IdTipoC__4BAC3F29" FromRole="Cliente" ToRole="TipoCliente" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdClien__6B24EA82" FromRole="Cliente" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Empleado__IdDepa__59063A47" FromRole="Departamento" ToRole="Empleado" />
+          <NavigationProperty Name="Restauracion" Relationship="Self.FK__Restaurac__IdDep__66603565" FromRole="Departamento" ToRole="Restauracion" />
+        </EntityType>
+        <EntityType Name="Diagnostico">
+          <Key>
+            <PropertyRef Name="IdDiagnostico" />
+          </Key>
+          <Property Name="IdDiagnostico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAuto" Type="Int32" />
+          <Property Name="IdEmpleado" Type="Int32" />
+          <NavigationProperty Name="Auto" Relationship="Self.FK__Diagnosti__IdAut__5CD6CB2B" FromRole="Diagnostico" ToRole="Auto" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Diagnosti__IdEmp__5DCAEF64" FromRole="Diagnostico" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ApPat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ApMat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdDepartamento" Type="Int32" />
+          <Property Name="IdPuesto" Type="Int32" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK__Empleado__IdDepa__59063A47" FromRole="Empleado" ToRole="Departamento" />
+          <NavigationProperty Name="Diagnostico" Relationship="Self.FK__Diagnosti__IdEmp__5DCAEF64" FromRole="Empleado" ToRole="Diagnostico" />
+          <NavigationProperty Name="Puesto" Relationship="Self.FK__Empleado__IdPues__59FA5E80" FromRole="Empleado" ToRole="Puesto" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdEmple__6EF57B66" FromRole="Empleado" ToRole="Factura" />
+          <NavigationProperty Name="Restauracion" Relationship="Self.FK__Restaurac__IdEmp__656C112C" FromRole="Empleado" ToRole="Restauracion" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+          </Key>
+          <Property Name="IdFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAuto" Type="Int32" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="IdRestauracion" Type="Int32" />
+          <Property Name="IdProducto" Type="Int32" />
+          <Property Name="IdPromocion" Type="Int32" />
+          <Property Name="IdEmpleado" Type="Int32" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="FechaExpedicion" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Auto" Relationship="Self.FK__Factura__IdAuto__6A30C649" FromRole="Factura" ToRole="Auto" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Factura__IdClien__6B24EA82" FromRole="Factura" ToRole="Cliente" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Factura__IdEmple__6EF57B66" FromRole="Factura" ToRole="Empleado" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Factura__IdProdu__6D0D32F4" FromRole="Factura" ToRole="Producto" />
+          <NavigationProperty Name="Promocion" Relationship="Self.FK__Factura__IdPromo__6E01572D" FromRole="Factura" ToRole="Promocion" />
+          <NavigationProperty Name="Restauracion" Relationship="Self.FK__Factura__IdResta__6C190EBB" FromRole="Factura" ToRole="Restauracion" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="NoParte" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdProdu__6D0D32F4" FromRole="Producto" ToRole="Factura" />
+          <NavigationProperty Name="Restauracion" Relationship="Self.FK__Restaurac__IdPro__6754599E" FromRole="Producto" ToRole="Restauracion" />
+          <NavigationProperty Name="Restauracion1" Relationship="Self.Producto_Reparacion" FromRole="Producto" ToRole="Restauracion" />
+        </EntityType>
+        <EntityType Name="Promocion">
+          <Key>
+            <PropertyRef Name="IdPromocion" />
+          </Key>
+          <Property Name="IdPromocion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Promocion1" Type="Int32" />
+          <Property Name="FechaInicio" Type="DateTime" Precision="0" />
+          <Property Name="Fechavenchimiento" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdPromo__6E01572D" FromRole="Promocion" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="Puesto">
+          <Key>
+            <PropertyRef Name="IdPuesto" />
+          </Key>
+          <Property Name="IdPuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Empleado__IdPues__59FA5E80" FromRole="Puesto" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Restauracion">
+          <Key>
+            <PropertyRef Name="IdRestauracion" />
+          </Key>
+          <Property Name="IdRestauracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAuto" Type="Int32" />
+          <Property Name="IdEmpleado" Type="Int32" />
+          <Property Name="IdDepartamento" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrecioRestauracion" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="IdProducto" Type="Int32" />
+          <Property Name="FechaReatauracion" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Auto" Relationship="Self.FK__Restaurac__IdAut__6477ECF3" FromRole="Restauracion" ToRole="Auto" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK__Restaurac__IdDep__66603565" FromRole="Restauracion" ToRole="Departamento" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Restaurac__IdEmp__656C112C" FromRole="Restauracion" ToRole="Empleado" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdResta__6C190EBB" FromRole="Restauracion" ToRole="Factura" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Restaurac__IdPro__6754599E" FromRole="Restauracion" ToRole="Producto" />
+          <NavigationProperty Name="Auto1" Relationship="Self.Auto_Reparacion" FromRole="Restauracion" ToRole="Auto" />
+          <NavigationProperty Name="Producto1" Relationship="Self.Producto_Reparacion" FromRole="Restauracion" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Status_Auto">
+          <Key>
+            <PropertyRef Name="IdStatus_Auto" />
+          </Key>
+          <Property Name="IdStatus_Auto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Auto" Relationship="Self.FK__Auto__IdStatus_A__5165187F" FromRole="Status_Auto" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="TipoCliente">
+          <Key>
+            <PropertyRef Name="IdTipoCliente" />
+          </Key>
+          <Property Name="IdTipoCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__IdTipoC__4BAC3F29" FromRole="TipoCliente" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK__Auto__IdCliente__52593CB8">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Auto__IdStatus_A__5165187F">
+          <End Role="Status_Auto" Type="Self.Status_Auto" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status_Auto">
+              <PropertyRef Name="IdStatus_Auto" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="IdStatus_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Diagnosti__IdAut__5CD6CB2B">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="0..1" />
+          <End Role="Diagnostico" Type="Self.Diagnostico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="Diagnostico">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdAuto__6A30C649">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdAut__6477ECF3">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__IdTipoC__4BAC3F29">
+          <End Role="TipoCliente" Type="Self.TipoCliente" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCliente">
+              <PropertyRef Name="IdTipoCliente" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IdTipoCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdClien__6B24EA82">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empleado__IdDepa__59063A47">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdDep__66603565">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Diagnosti__IdEmp__5DCAEF64">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Diagnostico" Type="Self.Diagnostico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Diagnostico">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empleado__IdPues__59FA5E80">
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Puesto">
+              <PropertyRef Name="IdPuesto" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdPuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdEmple__6EF57B66">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdEmp__656C112C">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdProdu__6D0D32F4">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdPromo__6E01572D">
+          <End Role="Promocion" Type="Self.Promocion" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocion">
+              <PropertyRef Name="IdPromocion" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdPromocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdResta__6C190EBB">
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauracion">
+              <PropertyRef Name="IdRestauracion" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdRestauracion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurac__IdPro__6754599E">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="Restauracion">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Auto_Reparacion">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+        </Association>
+        <Association Name="Producto_Reparacion">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <End Role="Restauracion" Type="Self.Restauracion" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="LosIngesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Auto" EntityType="Self.Auto" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+          <EntitySet Name="Diagnostico" EntityType="Self.Diagnostico" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Promocion" EntityType="Self.Promocion" />
+          <EntitySet Name="Puesto" EntityType="Self.Puesto" />
+          <EntitySet Name="Restauracion" EntityType="Self.Restauracion" />
+          <EntitySet Name="Status_Auto" EntityType="Self.Status_Auto" />
+          <EntitySet Name="TipoCliente" EntityType="Self.TipoCliente" />
+          <AssociationSet Name="FK__Auto__IdCliente__52593CB8" Association="Self.FK__Auto__IdCliente__52593CB8">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Auto__IdStatus_A__5165187F" Association="Self.FK__Auto__IdStatus_A__5165187F">
+            <End Role="Status_Auto" EntitySet="Status_Auto" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Diagnosti__IdAut__5CD6CB2B" Association="Self.FK__Diagnosti__IdAut__5CD6CB2B">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Diagnostico" EntitySet="Diagnostico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdAuto__6A30C649" Association="Self.FK__Factura__IdAuto__6A30C649">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdAut__6477ECF3" Association="Self.FK__Restaurac__IdAut__6477ECF3">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__IdTipoC__4BAC3F29" Association="Self.FK__Cliente__IdTipoC__4BAC3F29">
+            <End Role="TipoCliente" EntitySet="TipoCliente" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdClien__6B24EA82" Association="Self.FK__Factura__IdClien__6B24EA82">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleado__IdDepa__59063A47" Association="Self.FK__Empleado__IdDepa__59063A47">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdDep__66603565" Association="Self.FK__Restaurac__IdDep__66603565">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Diagnosti__IdEmp__5DCAEF64" Association="Self.FK__Diagnosti__IdEmp__5DCAEF64">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Diagnostico" EntitySet="Diagnostico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleado__IdPues__59FA5E80" Association="Self.FK__Empleado__IdPues__59FA5E80">
+            <End Role="Puesto" EntitySet="Puesto" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdEmple__6EF57B66" Association="Self.FK__Factura__IdEmple__6EF57B66">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdEmp__656C112C" Association="Self.FK__Restaurac__IdEmp__656C112C">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdProdu__6D0D32F4" Association="Self.FK__Factura__IdProdu__6D0D32F4">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdPromo__6E01572D" Association="Self.FK__Factura__IdPromo__6E01572D">
+            <End Role="Promocion" EntitySet="Promocion" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdResta__6C190EBB" Association="Self.FK__Factura__IdResta__6C190EBB">
+            <End Role="Restauracion" EntitySet="Restauracion" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurac__IdPro__6754599E" Association="Self.FK__Restaurac__IdPro__6754599E">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="Auto_Reparacion" Association="Self.Auto_Reparacion">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <AssociationSet Name="Producto_Reparacion" Association="Self.Producto_Reparacion">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Restauracion" EntitySet="Restauracion" />
+          </AssociationSet>
+          <FunctionImport Name="Alta_Empleado">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApPat" Mode="In" Type="String" />
+            <Parameter Name="ApMat" Mode="In" Type="String" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="IdPuesto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Alta_Prod">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApPat" Mode="In" Type="String" />
+            <Parameter Name="ApMat" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Auto_Alta">
+            <Parameter Name="Placa" Mode="In" Type="String" />
+            <Parameter Name="Marca" Mode="In" Type="String" />
+            <Parameter Name="Modelo" Mode="In" Type="String" />
+            <Parameter Name="Anio" Mode="In" Type="Int32" />
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Auto_Eliminar">
+            <Parameter Name="IdAuto" Mode="In" Type="Int32" />
+            <Parameter Name="Salida" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AutoRestauracion_Alta">
+            <Parameter Name="IdAuto" Mode="In" Type="Int32" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="PrecioRestauracion" Mode="In" Type="Decimal" />
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Cliente_Alta">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApPat" Mode="In" Type="String" />
+            <Parameter Name="ApMat" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Cliente_Update">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApPat" Mode="In" Type="String" />
+            <Parameter Name="ApMat" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Empleado_Update">
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApPat" Mode="In" Type="String" />
+            <Parameter Name="ApMat" Mode="In" Type="String" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="IdPuesto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Alta_Producto">
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="NoParte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Auto_EstadoTerminado">
+            <Parameter Name="IdAuto" Mode="In" Type="Int32" />
+            <Parameter Name="Salida" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LosIngesModelStoreContainer" CdmEntityContainer="LosIngesEntities">
+          <EntitySetMapping Name="Auto">
+            <EntityTypeMapping TypeName="LosIngesModel.Auto">
+              <MappingFragment StoreEntitySet="Auto">
+                <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+                <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="IdStatus_Auto" ColumnName="IdStatus_Auto" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="LosIngesModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApPat" ColumnName="ApPat" />
+                <ScalarProperty Name="ApMat" ColumnName="ApMat" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="IdTipoCliente" ColumnName="IdTipoCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="LosIngesModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diagnostico">
+            <EntityTypeMapping TypeName="LosIngesModel.Diagnostico">
+              <MappingFragment StoreEntitySet="Diagnostico">
+                <ScalarProperty Name="IdDiagnostico" ColumnName="IdDiagnostico" />
+                <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="LosIngesModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApPat" ColumnName="ApPat" />
+                <ScalarProperty Name="ApMat" ColumnName="ApMat" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="LosIngesModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+                <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdRestauracion" ColumnName="IdRestauracion" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdPromocion" ColumnName="IdPromocion" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="FechaExpedicion" ColumnName="FechaExpedicion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="LosIngesModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NoParte" ColumnName="NoParte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promocion">
+            <EntityTypeMapping TypeName="LosIngesModel.Promocion">
+              <MappingFragment StoreEntitySet="Promocion">
+                <ScalarProperty Name="IdPromocion" ColumnName="IdPromocion" />
+                <ScalarProperty Name="Promocion1" ColumnName="Promocion" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="Fechavenchimiento" ColumnName="Fechavenchimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Puesto">
+            <EntityTypeMapping TypeName="LosIngesModel.Puesto">
+              <MappingFragment StoreEntitySet="Puesto">
+                <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restauracion">
+            <EntityTypeMapping TypeName="LosIngesModel.Restauracion">
+              <MappingFragment StoreEntitySet="Restauracion">
+                <ScalarProperty Name="IdRestauracion" ColumnName="IdRestauracion" />
+                <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="PrecioRestauracion" ColumnName="PrecioRestauracion" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="FechaReatauracion" ColumnName="FechaReatauracion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status_Auto">
+            <EntityTypeMapping TypeName="LosIngesModel.Status_Auto">
+              <MappingFragment StoreEntitySet="Status_Auto">
+                <ScalarProperty Name="IdStatus_Auto" ColumnName="IdStatus_Auto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoCliente">
+            <EntityTypeMapping TypeName="LosIngesModel.TipoCliente">
+              <MappingFragment StoreEntitySet="TipoCliente">
+                <ScalarProperty Name="IdTipoCliente" ColumnName="IdTipoCliente" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Auto_Reparacion" TypeName="LosIngesModel.Auto_Reparacion" StoreEntitySet="Auto_Reparacion">
+            <EndProperty Name="Auto">
+              <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+            </EndProperty>
+            <EndProperty Name="Restauracion">
+              <ScalarProperty Name="IdRestauracion" ColumnName="IdRestauracion" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Producto_Reparacion" TypeName="LosIngesModel.Producto_Reparacion" StoreEntitySet="Producto_Reparacion">
+            <EndProperty Name="Producto">
+              <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+            </EndProperty>
+            <EndProperty Name="Restauracion">
+              <ScalarProperty Name="IdRestauracion" ColumnName="IdRestauracion" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="Alta_Empleado" FunctionName="LosIngesModel.Store.Alta_Empleado" />
+          <FunctionImportMapping FunctionImportName="Alta_Prod" FunctionName="LosIngesModel.Store.Alta_Prod" />
+          <FunctionImportMapping FunctionImportName="SP_Auto_Alta" FunctionName="LosIngesModel.Store.SP_Auto_Alta" />
+          <FunctionImportMapping FunctionImportName="SP_Auto_Eliminar" FunctionName="LosIngesModel.Store.SP_Auto_Eliminar" />
+          <FunctionImportMapping FunctionImportName="SP_AutoRestauracion_Alta" FunctionName="LosIngesModel.Store.SP_AutoRestauracion_Alta" />
+          <FunctionImportMapping FunctionImportName="SP_Cliente_Alta" FunctionName="LosIngesModel.Store.SP_Cliente_Alta" />
+          <FunctionImportMapping FunctionImportName="SP_Cliente_Update" FunctionName="LosIngesModel.Store.SP_Cliente_Update" />
+          <FunctionImportMapping FunctionImportName="SP_Empleado_Update" FunctionName="LosIngesModel.Store.SP_Empleado_Update" />
+          <FunctionImportMapping FunctionImportName="Alta_Producto" FunctionName="LosIngesModel.Store.Alta_Producto" />
+          <FunctionImportMapping FunctionImportName="SP_Auto_EstadoTerminado" FunctionName="LosIngesModel.Store.SP_Auto_EstadoTerminado" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
